@@ -1,53 +1,49 @@
-// Constante de Avogadro
-const avogadro = 6.02214076e23;
+const numeroAvogadro = 6.022e23;
 
-// Mostrar campos según la opción seleccionada
-function showConversionFields() {
-    const conversionType = document.getElementById("conversionType").value;
-    document.getElementById("molesToGramsSection").style.display = "none";
-    document.getElementById("gramsToMolesSection").style.display = "none";
-    document.getElementById("molesToAtomsSection").style.display = "none";
-    document.getElementById("atomsToMolesSection").style.display = "none";
-
-    if (conversionType === "molesToGrams") {
-        document.getElementById("molesToGramsSection").style.display = "block";
-    } else if (conversionType === "gramsToMoles") {
-        document.getElementById("gramsToMolesSection").style.display = "block";
-    } else if (conversionType === "molesToAtoms") {
-        document.getElementById("molesToAtomsSection").style.display = "block";
-    } else if (conversionType === "atomsToMoles") {
-        document.getElementById("atomsToMolesSection").style.display = "block";
+// Masa del elemento → Número de moles
+function calcularMoles() {
+    const masaElemento = parseFloat(document.getElementById("masaElemento1").value);
+    const masaMolar = parseFloat(document.getElementById("masaMolar1").value);
+    if (masaElemento && masaMolar) {
+        const moles = masaElemento / masaMolar;
+        document.getElementById("resultadoMoles").innerText = `Número de moles: ${moles.toExponential(3)}`;
+    } else {
+        document.getElementById("resultadoMoles").innerText = "Por favor ingrese valores válidos.";
     }
 }
 
-// Conversión de Moles a Gramos
-function convertMolesToGrams() {
-    const moles = parseFloat(document.getElementById("moles").value);
-    const molarMass = parseFloat(document.getElementById("molarMass").value);
-    const elementSymbol = document.getElementById("symbol").value;
-    const mass = moles * molarMass;
-    document.getElementById("result1").innerText = `${moles} moles de ${elementSymbol} = ${mass.toFixed(4)} gramos`;
+// Número de moles → Número de átomos
+function calcularAtomos() {
+    const moles = parseFloat(document.getElementById("moles2").value);
+    if (moles) {
+        const atomos = moles * numeroAvogadro;
+        document.getElementById("resultadoAtomos").innerText = `Número de átomos: ${atomos.toExponential(3)}`;
+    } else {
+        document.getElementById("resultadoAtomos").innerText = "Por favor ingrese un valor válido.";
+    }
 }
 
-// Conversión de Gramos a Moles
-function convertGramsToMoles() {
-    const grams = parseFloat(document.getElementById("grams").value);
-    const molarMass = parseFloat(document.getElementById("molarMass2").value);
-    const elementSymbol = document.getElementById("symbol2").value;
-    const moles = grams / molarMass;
-    document.getElementById("result2").innerText = `${grams} gramos de ${elementSymbol} = ${moles.toFixed(4)} moles`;
+// Masa del elemento → Número de átomos
+function calcularAtomosDesdeMasa() {
+    const masaElemento = parseFloat(document.getElementById("masaElemento3").value);
+    const masaMolar = parseFloat(document.getElementById("masaMolar3").value);
+    if (masaElemento && masaMolar) {
+        const moles = masaElemento / masaMolar;
+        const atomos = moles * numeroAvogadro;
+        document.getElementById("resultadoAtomosDesdeMasa").innerText = `Número de átomos: ${atomos.toExponential(3)}`;
+    } else {
+        document.getElementById("resultadoAtomosDesdeMasa").innerText = "Por favor ingrese valores válidos.";
+    }
 }
 
-// Conversión de Moles a Átomos
-function convertMolesToAtoms() {
-    const moles = parseFloat(document.getElementById("molesToAtoms").value);
-    const atoms = moles * avogadro;
-    document.getElementById("result3").innerText = `${moles} moles = ${atoms.toExponential(4)} átomos`;
-}
-
-// Conversión de Átomos a Moles
-function convertAtomsToMoles() {
-    const atoms = parseFloat(document.getElementById("atoms").value);
-    const moles = atoms / avogadro;
-    document.getElementById("result4").innerText = `${atoms.toExponential(4)} átomos = ${moles.toFixed(4)} moles`;
+// Número de moles → Masa del elemento
+function calcularMasaDesdeMoles() {
+    const moles = parseFloat(document.getElementById("moles4").value);
+    const masaMolar = parseFloat(document.getElementById("masaMolar4").value);
+    if (moles && masaMolar) {
+        const masa = moles * masaMolar;
+        document.getElementById("resultadoMasaDesdeMoles").innerText = `Masa del elemento: ${masa.toExponential(3)} g`;
+    } else {
+        document.getElementById("resultadoMasaDesdeMoles").innerText = "Por favor ingrese valores válidos.";
+    }
 }
